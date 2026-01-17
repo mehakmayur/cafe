@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | Café Aroma</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Poppins;
+background:linear-gradient(135deg,#3e2723,#6f4e37);
+color:#333;
+}
+
+/* HEADER */
+header{
+background:#2d1b12;
+color:#fff;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+header h1{margin:0;font-family:Playfair Display}
+header a{
+color:#fff;
+text-decoration:none;
+background:#6f4e37;
+padding:8px 15px;
+border-radius:6px;
+}
+
+/* CONTAINER */
+.container{
+padding:30px;
+max-width:1200px;
+margin:auto;
+}
+
+/* CARD */
+.card{
+background:#fff;
+border-radius:12px;
+padding:20px;
+margin-bottom:30px;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+/* TABLE */
+table{
+width:100%;
+border-collapse:collapse;
+}
+th,td{
+padding:12px;
+border-bottom:1px solid #ddd;
+text-align:center;
+}
+th{
+background:#6f4e37;
+color:#fff;
+}
+
+/* BUTTONS */
+.btn{
+padding:6px 14px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:14px;
+}
+.approve{background:#2e7d32;color:#fff}
+.reject{background:#c62828;color:#fff}
+.add{background:#6f4e37;color:#fff}
+
+/* FORM */
+.admin-form input{
+padding:10px;
+margin:5px;
+width:200px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>☕ Café Aroma — Admin</h1>
+<a href="index.html">← Back to Website</a>
+</header>
+
+<div class="container">
+
+<!-- ORDERS -->
+<div class="card">
+<h2>📦 Orders for Approval</h2>
+
+<table id="ordersTable">
+<tr>
+<th>Name</th>
+<th>Item</th>
+<th>Qty</th>
+<th>Address</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</table>
+</div>
+
+<!-- ADD MENU -->
+<div class="card">
+<h2>➕ Add New Menu Item</h2>
+
+<div class="admin-form">
+<input type="text" id="menuName" placeholder="Item name">
+<input type="number" id="menuPrice" placeholder="Price">
+<button class="btn add" onclick="addMenu()">Add Item</button>
+</div>
+</div>
+
+</div>
+
+<script>
+// ---------- LOAD DATA ----------
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+let menu = JSON.parse(localStorage.getItem("menu")) || [];
+
+// ---------- LOAD ORDERS ----------
+function loadOrders(){
+let table = document.getElementById("ordersTable");
+table.innerHTML = `
+<tr>
+<th>Name</th>
+<th>Item</th>
+<th>Qty</th>
+<th>Address</th>
+<th>Status</th>
+<th>Action</th>
+</tr>`;
+
+orders.forEach((o,i)=>{
+table.innerHTML += `
+<tr>
+<td>${o.name}</td>
+<td>${o.item}</td>
+<td>${o.qty}</td>
+<td>${o.address}</td>
+<td>${o.status || "Pending"}</td>
+<td>
+<button class="btn approve" onclick="approveOrder(${i})">Approve</button>
+<button class="btn reject" onclick="rejectOrder(${i})">Reject</button>
+</td>
+</tr>`;
+});
+}
+
+// ---------- APPROVE / REJECT ----------
+function approveOrder(i){
+orders[i].status = "Approved";
+saveOrders();
+}
+function rejectOrder(i){
+orders[i].status = "Rejected";
+saveOrders();
+}
+function saveOrders(){
+localStorage.setItem("orders",JSON.stringify(orders));
+loadOrders();
+}
+
+// ---------- ADD MENU ----------
+function addMenu(){
+let name = document.getElementById("menuName").value;
+let price = document.getElementById("menuPrice").value;
+
+if(!name || !price){
+alert("Fill all fields");
+return;
+}
+
+menu.push({name,price});
+localStorage.setItem("menu",JSON.stringify(menu));
+
+document.getElementById("menuName").value="";
+document.getElementById("menuPrice").value="";
+
+alert("Menu item added ☕\nIt will appear on user side");
+}
+
+// ---------- INIT ----------
+loadOrders();
+</script>
+
+</body>
+</html>
