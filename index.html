@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Café Aroma</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ---------- GLOBAL FIX ---------- */
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        /* ---------- NAVBAR ---------- */
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            flex-wrap: wrap;
+        }
+        
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        .navbar ul li a {
+            text-decoration: none;
+            color: black;
+            font-weight: 500;
+        }
+        /* ---------- HERO ---------- */
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        /* ---------- CARDS ---------- */
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        /* ---------- MENU ---------- */
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        /* ---------- FORMS ---------- */
+        
+        .order-form,
+        .contact-form {
+            max-width: 500px;
+            width: 100%;
+            margin: auto;
+        }
+        /* ---------- CONTACT ---------- */
+        
+        .contact-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        /* ---------- FOOTER ---------- */
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+        }
+        /* ---------- MOBILE ---------- */
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .navbar ul {
+                flex-direction: column;
+                width: 100%;
+                padding-top: 10px;
+            }
+            .hero h2 {
+                font-size: 26px;
+            }
+            .hero p {
+                font-size: 15px;
+            }
+            .cards,
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+        /* ---------- TABLET ---------- */
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .menu-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        /* ---------- RESPONSIVE DESIGN ---------- */
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .hero {
+                height: auto;
+                padding: 60px 20px;
+                text-align: center;
+            }
+            .hero h2 {
+                font-size: 28px;
+            }
+            .cards {
+                flex-direction: column;
+            }
+            .card {
+                width: 100%;
+            }
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            .menu-item img {
+                width: 100%;
+                height: auto;
+            }
+            .order-form {
+                width: 100%;
+                padding: 15px;
+            }
+            .contact-container {
+                flex-direction: column;
+            }
+            .qr-menu img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        /* ---------- TABLET ---------- */
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .menu-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .order-form {
+                width: 80%;
+            }
+        }
+    </style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1 class="logo">☕VIBE WITH COFFEE</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#order">Order Now</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" onclick="openAdminLogin()">Admin</a></li>
+
+
+
+
+
+        </ul>
+    </nav>
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-box">
+            <span class="close-btn" onclick="closeLogin()"></span>
+            <h2>Login</h2>
+
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+
+            <button class="btn" onclick="loginSuccess()">Login</button>
+            <p>Don't have an account? <a href="#">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Fresh Coffee & Delicious Food</h2>
+            <p>Your perfect place to relax, eat, and enjoy moments.</p>
+            <a href="#order" class="btn">order now</a>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured">
+        <h2>Our Specials</h2>
+        <div class="cards">
+
+            <div class="card">
+                <img src="hot coffee.jpg" alt="Coffee">
+                <h3>Hot Coffee</h3>
+                <p>Rich aroma and perfect taste.</p>
+                <a href="#order" class="btn">order now</a>
+            </div>
+            <div class="card">
+                <img src="cheese pizza.jpg" alt="cheesy Pizza">
+                <h3> Cheesy Pizza</h3>
+                <p> Loaded with extra cheese .</p>
+                <a href="#order" class="btn">order now</a>
+            </div>
+
+
+            <div class="card">
+                <img src="CheeseBurger.jpg" alt="Burger">
+                <h3>Cheesy Burger</h3>
+                <p>Freshly made with love.</p>
+                <a href="#order" class="btn">order now</a>
+            </div>
+
+            <div class="card">
+                <img src="sweets.jpg" alt="Dessert">
+                <h3>Sweet Desserts</h3>
+                <p>End your meal happily.</p>
+                <a href="#order" class="btn">order now</a>
+            </div>
+
+        </div>
+        <!-- Menu Section -->
+        <section class="menu" id="menu">
+            <DIV class="mm">
+                <h2>Our Menu</h2>
+
+                <div class="menu-items">
+
+                    <div class="menu-item">
+                        <h3>Hot Coffee</h3>
+                        <img src="hot coffee.jpg" alt="hot coffee">
+                        <p>Rich & aromatic coffee</p>
+                        <span>₹120</span>
+                        <a href="#order" class="btn">order now</a>
+                    </div>
+                    <div class="menu-item">
+                        <h3>Cheesy Pizza</h3>
+                        <img src=" cone pizza.jfif" alt="pizza">
+                        <p>Loaded with extra cheese</p>
+                        <span>₹250</span>
+                        <a href="#order" class="btn">order now</a>
+                    </div>
+
+                    <div class="menu-item">
+                        <h3>Cheesy Burger</h3>
+                        <img src="burger.jpg" alt="burger">
+                        <p>Fresh bun with juicy patty</p>
+                        <span>₹180</span>
+                        <a href="#order" class="btn">order now</a>
+                    </div>
+
+                    <div class="menu-item">
+                        <h3>Sweet Desserts</h3>
+                        <img src="mithai.jpg" alt="sweets">
+                        <p>Chocolate & cream based</p>
+                        <span>₹140</span>
+                        <a href="#order" class="btn">order now</a>
+                    </div>
+                    <div class="menu-item">
+                        <h3>Cappuccino</h3>
+                        <img src="Cappuccino.jfif" alt="Cappuccino">
+                        <p>Cappuccino</p>
+                        <span>₹120</span>
+                        <a href="#order" class="btn">order now</a>
+                    </div>
+
+                    <div class="menu-item">
+
+                        <h3>Cold Coffee</h3>
+                        <img src="cold coffee.jfif" alt="Cold Coffee">
+                        <p>Cold Coffee</p>
+                        <span>₹150</span>
+                        <a href="#order" class="btn">order now</a>
+                    </div>
+
+                    <div class="menu-item">
+
+                        <h3>Veg Sandwich</h3>
+                        <img src="Veg Sandwich.jpg" alt="Veg Sandwich">
+                        <p>Veg Sandwich</p>
+                        <span>₹90</span>
+                        <a href="#order" class="btn">order now</a>
+                    </div>
+
+                    <div class="menu-item">
+
+                        <h3>French Fries</h3>
+                        <img src="French Fries.jpg" alt="French Fries">
+                        <p>French Fries</p>
+                        <span>₹100</span>
+                        <a href="#order" class="btn">order now</a>
+                    </div>
+
+
+                </div>
+            </DIV>
+        </section>
+        <!-- Order Now Section -->
+        <section class="order" id="order">
+            <h2>Order Online</h2>
+
+            <form class="order-form" onsubmit="placeOrder(event)">
+                <input type="text" id="custName" placeholder="Your Name" required>
+
+                <select id="item" onchange="updatePrice()" required>
+
+            <option value="">Select Item</option>
+            <option value="120">Hot Coffee - ₹120</option>
+            <option value="250">Cheesy Pizza - ₹250</option>
+            <option value="180">Cheesy Burger - ₹180</option>
+            <option value="140">Sweet Desserts - ₹140</option>
+            <option value="120">Cappuccino - ₹120</option>
+            <option value="150">Cold Coffee - ₹150</option>
+            <option value="90">Veg Sandwich - ₹90</option>
+            <option value="100">French Fries - ₹100</option>
+
+
+        </select>
+
+                <input type="number" id="qty" placeholder="Quantity" min="1" value="1" onchange="updatePrice()" required>
+
+                <input type="text" id="address" placeholder="Delivery Address" required>
+
+                <h3>Total: ₹<span id="total">0</span></h3>
+
+                <button type="submit" class="btn">Place Order</button>
+            </form>
+
+            <!-- About Section -->
+            <section class="about" id="about">
+                <div class="mm1">
+                    <h2>About Café Aroma</h2>
+                    <p>
+                        Café Aroma is a cozy place where fresh coffee meets delicious food. We believe in quality, taste, and creating memorable moments for our customers.
+                    </p>
+
+                    <div class="about-box">
+                        <div>
+                            <h3>☕ Fresh Coffee</h3>
+                            <p>Made from premium coffee beans with rich aroma.</p>
+                        </div>
+
+                        <div>
+                            <h3>🍕 Delicious Food</h3>
+                            <p>Cheesy pizzas, burgers, and desserts made with love.</p>
+                        </div>
+
+                        <div>
+                            <h3>😊 Warm Ambience</h3>
+                            <p>Relaxing environment perfect for friends and family.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Contact Section -->
+            <section class="contact" id="contact">
+                <div class="mm3">
+                    <h2>Contact Us</h2>
+
+                    <div class="contact-container">
+
+                        <div class="contact-info">
+                            <p><strong>📍 Address:</strong> Main Market, City Center, India</p>
+                            <p><strong>📞 Phone:</strong> +91 98765 43210</p>
+                            <p><strong>📧 Email:</strong> cafearoma@gmail.com</p>
+                            <p><strong>⏰ Timings:</strong> 9 AM – 10 PM</p>
+                        </div>
+
+                        <form class="contact-form">
+                            <input type="text" placeholder="Your Name" required>
+                            <input type="email" placeholder="Your Email" required>
+                            <textarea placeholder="Your Message" rows="4" required></textarea>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+
+                    </div>
+                </div>
+            </section>
+        </section>
+        <!-- Online Order Section -->
+        <section class="order" id="order">
+            <h2>Order Online</h2>
+
+            <form class="order-form">
+                <input type="text" placeholder="Your Name" required>
+
+                <select required>
+            <option value="">Select Item</option>
+            <option>Hot Coffee - ₹120</option>
+            <option>Cheesy Pizza - ₹250</option>
+            <option>Cheesy Burger - ₹180</option>
+            <option>Sweet Desserts - ₹140</option>
+        </select>
+
+                <input type="number" placeholder="Quantity" min="1" required>
+
+                <input type="text" placeholder="Delivery Address" required>
+
+                <button type="submit" class="btn">Place Order</button>
+            </form>
+        </section>
+
+        <!-- Admin Panel -->
+        <!-- Admin Dashboard -->
+
+
+
+
+    </section>
+    <script>
+        function payNow() {
+            alert("Payment Successful ☕\nThank you for your order!");
+        }
+
+        function openLogin() {
+            document.getElementById("loginModal").style.display = "flex";
+        }
+
+        function closeLogin() {
+            document.getElementById("loginModal").style.display = "none";
+        }
+
+        function loginSuccess() {
+            alert("Login Successful ☕");
+            closeLogin();
+        }
+
+        function updatePrice() {
+            let price = document.getElementById("item").value;
+            let qty = document.getElementById("qty").value;
+
+            if (price && qty) {
+                document.getElementById("total").innerText = price * qty;
+            }
+        }
+
+        function placeOrder(event) {
+            event.preventDefault();
+            alert("Order Placed Successfully ☕\nThank you for ordering!");
+        }
+
+        function openAdminLogin() {
+            document.getElementById("adminLoginModal").style.display = "flex";
+        }
+
+        function closeAdminLogin() {
+            document.getElementById("adminLoginModal").style.display = "none";
+        }
+
+
+        function adminLogin() {
+            let user = document.getElementById("adminUser").value;
+            let pass = document.getElementById("adminPass").value;
+
+            if (user === "admin" && pass === "1234") {
+                // redirect to admin.html
+                window.location.href = "admin.html";
+            } else {
+                alert("Invalid Admin Credentials ❌");
+            }
+        }
+
+
+
+
+        function adminLogout() {
+            document.getElementById("adminSection").style.display = "none";
+            alert("Logged out successfully 👋");
+        }
+    </script>
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Café Aroma | All Rights Reserved</p>
+    </footer>
+    <!-- Admin Login Modal -->
+    <div class="login-modal" id="adminLoginModal">
+        <div class="login-box">
+            <span class="close-btn" onclick="closeAdminLogin()">✖</span>
+            <h2>Admin Login</h2>
+
+            <input type="text" id="adminUser" placeholder="Admin Username" required>
+            <input type="password" id="adminPass" placeholder="Admin Password" required>
+
+            <button class="btn" onclick="adminLogin()">Login</button>
+        </div>
+    </div>
+    <script>
+        // ---------- DATA ----------
+        let menu = JSON.parse(localStorage.getItem("menu")) || [{
+            name: "Hot Coffee",
+            price: 120
+        }, {
+            name: "Cheesy Pizza",
+            price: 250
+        }];
+
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+        // ---------- LOAD MENU ----------
+        function loadMenu() {
+            let menuDiv = document.getElementById("menuItems");
+            let select = document.getElementById("item");
+
+            menuDiv.innerHTML = "";
+            select.innerHTML = `<option value="">Select Item</option>`;
+
+            menu.forEach((item, index) => {
+                // User menu cards
+                menuDiv.innerHTML += `
+        <div class="menu-item">
+            <h3>${item.name}</h3>
+            <p>Delicious & fresh</p>
+            <span>₹${item.price}</span>
+            <a href="#order" class="btn">Order Now</a>
+        </div>`;
+
+                // Order dropdown
+                select.innerHTML += `
+        <option value="${item.price}|${item.name}">
+            ${item.name} - ₹${item.price}
+        </option>`;
+            });
+        }
+
+        // ---------- ADD MENU (ADMIN) ----------
+        function addMenuItem() {
+            let name = document.getElementById("menuName").value;
+            let price = document.getElementById("menuPrice").value;
+
+            if (!name || !price) {
+                alert("Fill all fields");
+                return;
+            }
+
+            menu.push({
+                name,
+                price
+            });
+            localStorage.setItem("menu", JSON.stringify(menu));
+            loadMenu();
+
+            alert("Menu item added ☕");
+        }
+
+        // ---------- ORDER ----------
+        function placeOrder(event) {
+            event.preventDefault();
+
+            let custName = document.getElementById("custName").value;
+            let itemData = document.getElementById("item").value.split("|");
+            let qty = document.getElementById("qty").value;
+            let address = document.getElementById("address").value;
+
+            let order = {
+                name: custName,
+                item: itemData[1],
+                qty,
+                address
+            };
+
+            orders.push(order);
+            localStorage.setItem("orders", JSON.stringify(orders));
+
+            loadOrders();
+            alert("Order Placed Successfully ☕");
+        }
+
+        // ---------- LOAD ORDERS (ADMIN) ----------
+        function loadOrders() {
+            let table = document.querySelector(".admin-table");
+            table.innerHTML = `
+    <tr>
+        <th>Name</th>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Address</th>
+    </tr>`;
+
+            orders.forEach(o => {
+                table.innerHTML += `
+        <tr>
+            <td>${o.name}</td>
+            <td>${o.item}</td>
+            <td>${o.qty}</td>
+            <td>${o.address}</td>
+        </tr>`;
+            });
+        }
+
+        // ---------- PRICE ----------
+        function updatePrice() {
+            let data = document.getElementById("item").value;
+            let qty = document.getElementById("qty").value;
+
+            if (data) {
+                let price = data.split("|")[0];
+                document.getElementById("total").innerText = price * qty;
+            }
+        }
+
+        // ---------- INIT ----------
+        loadMenu();
+        loadOrders();
+    </script>
+
+</body>
+
+</html>
